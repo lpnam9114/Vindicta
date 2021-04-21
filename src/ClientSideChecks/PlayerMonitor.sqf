@@ -219,37 +219,6 @@ CLASS("PlayerMonitor", "MessageReceiverEx") ;
 		OOP_INFO_1("NEAR LOCATIONS: %1", T_GETV("nearLocations"));
 		OOP_INFO_1("CURRENT LOCATIONS: %1", T_GETV("currentLocations"));
 
-		// Check if player is trying to fly an aircraft
-		private _veh = vehicle player;
-		if (_veh isKindOf "Air") then {
-			//pr _unit = GET_UNIT_FROM_OBJECT_HANDLE(_veh);
-			if ( /*!IS_NULL_OBJECT(_veh) &&*/ (isEngineOn _veh)) then {
-				pr _phrasesCantFly = [
-					localize "STR_PM_P_NO_PILOTING_1",
-					localize "STR_PM_P_NO_PILOTING_2",
-					localize "STR_PM_P_NO_PILOTING_3",
-					localize "STR_PM_P_NO_PILOTING_4",
-					localize "STR_PM_P_NO_PILOTING_5"
-				];
-				_veh vehicleChat (selectRandom _phrasesCantFly);
-				_veh engineOn false;
-
-				private _posATL = getPosATL _veh;
-				if ((speed _veh > 40) || ((_posATL#2) > 20)) then {
-					if (random 10 < 2) then {
-						_veh vehicleChat localize "STR_PM_P_TO_THE_GROUND";
-						_veh setHitPointDamage ["hitvrotor", 1, true];
-						_hits = (getAllHitPointsDamage _veh) select 0;
-						{
-							if ("engine" in _x) then {
-								_veh setHitPointDamage [_x, 1, true];
-							};
-						} forEach _hits;
-					};
-				};
-			};
-		};
-
 		T_SETV("prevPos", getPosASL _unit);
 	ENDMETHOD;
 
