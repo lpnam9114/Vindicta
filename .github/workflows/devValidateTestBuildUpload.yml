@@ -78,14 +78,3 @@ jobs:
       with:
         name: separateMissions
         path: separateMissions
-
-    - name: Publish to Steam Workshop
-      uses: arma-actions/workshop-upload@v1
-      with:
-        appId: '107410'      # default
-        itemId: '2154322285' # https://steamcommunity.com/sharedfiles/filedetails/?id=2154322285
-        contentPath: 'armaAddon'
-        changelog: ""
-      env:
-        STEAM_USERNAME: ${{ secrets.STEAM_VIN_USER }}
-        STEAM_PASSWORD: ${{ secrets.STEAM_VIN_PW }}
